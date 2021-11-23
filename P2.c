@@ -1,8 +1,8 @@
 /* 
  * File: P2.c
- * Copy: Copyright (c) 2021 Gregory C. Myers
+ * Copy: Copyright (c) 2021 Chattada Viriyaphap
  * BlazerID: chattada
- * Vers: 1.0.0 08/29/2021 GCM - Original Coding
+ * Vers: 1.0.0 11/23/2021
  * Desc: Driver for testing concepts 
  */ 
 
