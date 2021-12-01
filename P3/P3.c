@@ -257,7 +257,7 @@ int simple_supported_beam_v2(double W, double L, double a){
     printf("R1 (lbs):               %.2f\n", R1);
     printf("R2 (lbs):               %.2f\n", R2);
     printf("=============================\n");
-    
+       
     return (EXIT_SUCCESS);
 }
 
