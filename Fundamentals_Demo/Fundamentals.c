@@ -12,6 +12,7 @@
 #include <math.h> // math library
 
 #define KMS_PER_MILE 1.609 // conversion constant
+#define pi approximate_pi() // use function approximate_pi to define value for pi
 
 // Function prototypes
 int get_info(void); // print information about the user
@@ -81,11 +82,11 @@ int main(int argc, char** argv){
         integer_division();
     } else if(strcmpi(argv[ 1 ], "/integer_remainder") == 0){
         integer_remainder();
-/*
     } else if(strcmpi(argv[ 1 ], "/formatting_integers") == 0){
         formatting_integers();
     } else if(strcmpi(argv[ 1 ], "/formatting_doubles") == 0){
         formatting_doubles();
+/*
     } else if(strcmpi(argv[ 1 ], "/type_casts") == 0){
         type_casts();
     } else if(strcmpi(argv[ 1 ], "/interactive_01") == 0){
@@ -319,6 +320,73 @@ void integer_remainder(void){
     // printf("%d %% %d = %d\n", 15, 0, (15%0));
     
     printf("========================================\n");
+}
+
+/*
+ * Name: void formatting_integers(void)
+ * Desc: Demonstration of Displaying 234 and –234 Using Different Formatting
+ */
+void formatting_integers(void){
+    printf("Fundamentals: Examples of Formatting Type Integer Values\n");
+    printf("========================================\n");
+
+    printf("%4d\n", 234);
+    printf("%5d\n", 234);
+    printf("%6d\n", 234);
+    printf("%1d\n", 234);
+    
+    printf("%4d\n", -234);
+    printf("%5d\n", -234);
+    printf("%6d\n", -234);
+    printf("%2d\n", -234); 
+    
+    printf("========================================\n");    
+}
+
+/*
+ * Name: void formatting_doubles(void)
+ * Desc: Demonstration of Formatting Type double Values 
+ */
+void formatting_doubles(void){     
+    printf("Fundamentals: Examples of Formatting Type Double Values\n");
+    printf("========================================\n");
+    
+    printf("%f\n", pi);
+    printf("%16f\n", pi);
+    printf("%16.8f\n", pi);
+    printf("%16.12f\n", pi);
+    printf("%5.2f\n", pi);
+    printf("%3.2f\n", pi);
+    printf("%5.3f\n", pi);
+    printf("%4.2f\n", .1234);
+        
+    printf("========================================\n");
+    
+}
+
+/*
+ * Name: double approximate_pi(void)
+ * Desc: Calculate pi using the Gregory–Leibniz series
+ */
+double approximate_pi(void){
+    int count;
+    int sign;
+    double sum;
+        
+    sign = 1;
+    sum = 0.0;
+    
+    for (count = 1; count <= 19999; count += 2)
+    {
+        sum = sum +  sign * (1 / ((double) count)); 
+        /* Display the iteration number, the addendum and the running total.
+         * printf("%d %f %f\n", count, (sign * (1 / ((double) count))), (4*sum) );
+         */
+        // 
+        sign = -sign;        
+    }
+    sum = 4 * sum;
+    return( sum );
 }
 
 /* 
