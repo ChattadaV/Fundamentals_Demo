@@ -44,7 +44,7 @@ void help(void);
  */
 int main(int argc, char** argv){
     int index;
-    char first_name[10];
+    char first_name[10]; // maxmimum 10-1 = 9 characters long
     char last_name[10];
     char course_department[3];
     int course_number;
@@ -86,12 +86,15 @@ int main(int argc, char** argv){
         formatting_integers();
     } else if(strcmpi(argv[ 1 ], "/formatting_doubles") == 0){
         formatting_doubles();
-/*
     } else if(strcmpi(argv[ 1 ], "/type_casts") == 0){
         type_casts();
     } else if(strcmpi(argv[ 1 ], "/interactive_01") == 0){
         interactive_01();
+/*
+parametric_01 with argc = 6 below comes before parametric_01 with argc = 2 because argc = 6 is more restrictive
+*/
     } else if((strcmpi(argv[ 1 ], "/parametric_01") == 0) && (argc == 6)){
+        // strcpy --> string copy
         strcpy(first_name, argv[2]); // string copy argv[2] to variable first_name
         strcpy(last_name, argv[3]); // string copy argv[3] to last_name
         strcpy(course_department, argv[4]); // string copy argv[4] to course_department
@@ -114,8 +117,7 @@ int main(int argc, char** argv){
         scanf("%d", &course_number);
         
         // call to output function
-        parametric_01(first_name, last_name, course_department, course_number);
-*/
+        parametric_01(first_name, last_name, course_department, course_number);      
     } else if(strcmpi(argv[1], "/for_loops_01") == 0){
         for_loops_01();
     } else if(strcmpi(argv[1], "/for_loops_02") == 0){
@@ -166,7 +168,7 @@ void help(void){
     printf("    fundamentals_demo.exe /type_casts                ... calls type_casts\n");
     printf("    fundamentals_demo.exe /interactive_01            ... calls interactive_01\n");
     printf("    fundamentals_demo.exe /parametric_01             ... calls parametric_01\n");
-    printf("    fundamentals_demo.exe /parametric_01 Chattada Viriyaphap        ... calls parametric_01 using cmd line args\n");
+    printf("    fundamentals_demo.exe /parametric_01 Chattada Viriyaphap EE233  ... calls parametric_01 using cmd line args\n");
     printf("    fundamentals_demo.exe /for_loops_01              ... calls for_loops_01\n");
     printf("    fundamentals_demo.exe /for_loops_02              ... calls for_loops_02\n");   
     printf("    fundamentals_demo.exe /for_loops_03              ... calls for_loops_03\n");   
@@ -387,6 +389,95 @@ double approximate_pi(void){
     }
     sum = 4 * sum;
     return( sum );
+}
+
+/*
+ * Name: void type_casts(void)
+ * Desc: Demonstration of Examples of the Use of Type Casts 
+ */
+void type_casts(void){
+    int int_a;
+    int int_b;
+    double double_a;
+    double double_b;
+    char char_a;
+    
+    int_a = 5;
+    int_b = 6;
+    double_a = 5.0;
+    double_b = 6.0;    
+    char_a = 'G'; // single quote --> char
+    
+    printf("Fundamentals: Examples of Use of Type Casts\n");
+    printf("========================================\n");    
+    
+    // changing the datatype of the value (not the variable)
+    // int --> double
+    printf("%d --> %f\n", 5, ((double) 5) );
+    printf("%d --> %f\n", int_a, ((double) int_a) );
+    printf("%d + %d --> %f\n", int_a, int_b, ((double) (int_a + int_b)) );
+    
+    // double --> int
+    printf("%f --> %d\n", double_a, ((int) double_a) );
+    printf("%f + %f --> %d\n", double_a, double_b, ((int) (double_a + double_b)) );
+    
+    int_a = (int) (double_a + double_b);
+    printf("int_a: %d\n", int_a);
+    int_b = (int) (double_b / double_a);
+    printf("int_b: %d\n", int_b);
+    
+    int_b = (int) (5.0 / 3.0); // truncation
+    printf("int_b: %d\n", int_b);
+    
+    printf("1.9999 --> %d\n", (int) 1.9999); // truncation
+    
+    // char --> int
+    printf("%c --> %d\n", char_a, ((int) char_a)); // ASCII code for each character (decimation value for upper case G)
+    
+    // int --> char
+    printf("%d --> %c\n", 97, ((char) 97)); // ASCII code for each character (decimation value for lower case a)
+    char_a = (char) 97; // lowercase a
+    
+    printf("========================================\n");
+}
+
+/*
+ * Name: void interactive_01(void)
+ * Desc: Demonstration of scanf and printf interactively using strings
+ */
+void interactive_01(void){
+    // When allocating the size of a string, ALWAYS allocate one size LARGER than the largest piece
+    char first_name[10]; // expecting length of first name string to be maximum 9 characters long
+    char last_name[10]; // expecting length of last name string to be maximum 9 characters long
+    char course_department[3]; // expecting length of course department string to be maximum 2 characters long
+    int course_number;    
+
+    // collect this information from the user
+    printf("Please enter your first name (no more than 9 characters):\n");
+    scanf("%s", &first_name);
+
+    printf("Please enter your last name (no more than 9 characters):\n");
+    scanf("%s", &last_name);
+
+    printf("Please enter a course department (no more than 2 characters):\n");
+    scanf("%s", &course_department);
+
+    printf("Please enter a course number:\n");
+    scanf("%d", &course_number);
+        
+    // print the output
+    printf("Hello %s %s! Welcome to %s%d!\n", first_name, last_name, course_department, course_number);
+}
+
+/*
+ * Name: void parametric_01(const char first_name[], const char last_name[], const char course_department[], const int course_number )
+ * Desc: Demonstration of scanf and printf parametrically using strings
+ */
+void parametric_01(const char first_name[], const char last_name[], const char course_department[], const int course_number ){
+    // do some error checking
+    printf("Hello %s %s! Welcome to %s%d!\n", first_name, last_name, course_department, course_number);
+    
+    
 }
 
 /* 
