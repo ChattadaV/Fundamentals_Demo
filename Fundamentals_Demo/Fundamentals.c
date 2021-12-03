@@ -8,6 +8,7 @@
 
 #include <stdio.h> // printf, scanf, definitions
 #include <stdlib.h>
+#include <string.h> // strcpy, strcmpi
 
 #define KMS_PER_MILE 1.609 // conversion constant
 
@@ -22,7 +23,7 @@ void fornatting_doubles(void);
 double approximate_pi(void);
 void type_casts(void);
 void interactive_01(void);
-// void parametric_01(const char first_name[], const char);
+void parametric_01(const char first_name[], const char last_name[], const char course_department[], const int course_number);
 void for_loops_01(void);
 
 void help(void);
@@ -30,10 +31,16 @@ void help(void);
 // argc - count of the number of arguments
 // argv - array of arguments from command line
 // indexing is 0-based
+/* 
+ * Name: int main(int argc, char** argv)
+ * Desc: Used to drive other functions for the purpose to demo features in
+ * class.  Function calls are commented/uncommented depending on which features 
+ * are to be tested.  
+ */
 int main(int argc, char** argv){
     int index;
     char first_name[10];
-    chat last_name[10];
+    char last_name[10];
     char course_department[3];
     int course_number;
     
@@ -53,18 +60,85 @@ int main(int argc, char** argv){
      * line argument (arbitrary).
      */
     if(argc < 2){
-        help();
-    } else if((strcmpi(argv[ 1 ], "/h" == 0) || (strcmpi(argv[1], "/?") == 0)))
+        help(); // implicit call for help
+    } else if((strcmpi(argv[ 1 ], "/h") == 0) || (strcmpi(argv[1], "/?") == 0)){
+        help(); // explicit call for help
+    } else if(strcmpi(argv[ 1 ], "/get_info") == 0){
+        get_info();
+    } else if(strcmpi(argv[ 1 ], "/Figure_2_1") == 0){
+        Figure_2_1(); 
+    } else if(strcmpi(argv[ 1 ], "/arithmetic_operators") == 0){
+        arithmetic_operators();
+/*
+    } else if(strcmpi(argv[ 1 ], "/integer_division") == 0){
+        integer_division();
+    } else if(strcmpi(argv[ 1 ], "/integer_remainder") == 0){
+        integer_remainder();
+    } else if(strcmpi(argv[ 1 ], "/formatting_integers") == 0){
+        formatting_integers();
+    } else if(strcmpi(argv[ 1 ], "/formatting_doubles") == 0){
+        formatting_doubles();
+    } else if(strcmpi(argv[ 1 ], "/type_casts") == 0){
+        type_casts();
+    } else if(strcmpi(argv[ 1 ], "/interactive_01") == 0){
+        interactive_01();
+    } else if((strcmpi(argv[ 1 ], "/parametric_01") == 0) && (argc == 6)){
+        strcpy(first_name, argv[2]); // string copy argv[2] to variable first_name
+        strcpy(last_name, argv[3]); // string copy argv[3] to last_name
+        strcpy(course_department, argv[4]); // string copy argv[4] to course_department
+        course_number = atoi(argv[5]); // atoi convert string to integer
+        
+        // call to output function
+        parametric_01(first_name, last_name, course_department, course_number);
+    } else if((strcmpi(argv[ 1 ], "/parametric_01") == 0) && (argc == 2)){
+        // capture information from user
+        printf("Please enter a first name:\n");
+        scanf("%s", &first_name);
+        
+        printf("Please enter a last name:\n");
+        scanf("%s", &last_name);
+        
+        printf("Please enter a course department:\n");
+        scanf("%s", &course_department);
+        
+        printf("Please enter a course number:\n");
+        scanf("%d", &course_number);
+        
+        // call to output function
+        parametric_01(first_name, last_name, course_department, course_number);
+*/
+    } else if(strcmpi(argv[1], "/for_loops_01") == 0){
+        for_loops_01();
+    } else{
+        help(); // implicit call for help
+    }
     
     return(EXIT_SUCCESS);
 }
 
 /* 
- * Name: int main(int argc, char** argv)
- * Desc: Used to drive other functions for the purpose to demo features in
- * class.  Function calls are commented/uncommented depending on which features 
- * are to be tested.  
+ * Name: void help(void)
+ * Desc: prints out help
+ * Args: no input/output
  */
+void help(void){
+    printf("Usage:\n");
+    printf("    fundamentals_demo.exe /h                         ... calls help\n");
+    printf("    fundamentals_demo.exe /get_info                  ... calls get_info\n");
+    printf("    fundamentals_demo.exe /Figure_2_1                ... calls Figure_2_1\n");
+    printf("    fundamentals_demo.exe /arithmetic_operators      ... calls arithmetic_operators\n");
+    printf("    fundamentals_demo.exe /integer_division          ... calls integer_division\n");
+    printf("    fundamentals_demo.exe /integer_remainder         ... calls integer_remainder\n");
+    printf("    fundamentals_demo.exe /formatting_integers       ... calls formatting_integers\n");
+    printf("    fundamentals_demo.exe /formatting_doubles        ... calls formatting_doubles\n");
+    printf("    fundamentals_demo.exe /type_casts                ... calls type_casts\n");
+    printf("    fundamentals_demo.exe /interactive_01            ... calls interactive_01\n");
+    printf("    fundamentals_demo.exe /parametric_01             ... calls parametric_01\n");
+    printf("    fundamentals_demo.exe /parametric_01 Chattada Viriyaphap        ... calls parametric_01 using cmd line args\n");
+    printf("    fundamentals_demo.exe /for_loops_01              ... calls for_loops_01\n");   
+}
+
+
 int get_info(void){
     printf("Firstname: Chattada\n");
     printf("Lastname: Viriyaphap\n");
@@ -165,15 +239,37 @@ void for_loops_01(void){
      *      statement;
      *  }
      */ 
-    printf("index          value\n");
+    
+    // ascending values at increment of 1
+    printf("index      value\n");
     printf("======================================\n");
-    for(index=0; index<=9; index=index+1){
+    for(index=0; index<=9; index++){
         printf("%d          %d\n", index, 2*index);
     }
-    printf("======================================\n");
+    printf("======================================\n\n");
     
-    printf("index          value\n");
+    // descending values at increment of -1
+    printf("index      value\n");
     printf("======================================\n");
+    for(index = 9; index >= 0; index--){
+        printf("%d          %d\n", index, 2*index);
+    }
+    printf("======================================\n\n");
+    
+    // ascending values at increment of to the power of 2
+    printf("current      value\n");
+    printf("======================================\n");
+    for(current = 0.0; current <= 2.0; current = current + 0.1){
+        printf("%.2f          %.2f\n", current, pow(current, 2.0)); // 2nd value is current squared
+    }
+    printf("======================================\n\n");
+    
+    // example of empty for_loop
+    printf("index      value\n");
+    printf("======================================\n");
+    for(index = 0; index < 0; index = index + 1){
+        printf("%d          %d\n", index, 2*index);        
+    }
     printf("======================================\n");
 }
 
