@@ -27,6 +27,7 @@ void interactive_01(void);
 void parametric_01(const char first_name[], const char last_name[], const char course_department[], const int course_number);
 void for_loops_01(void);
 void for_loops_02(void);
+int for_loops_03(int start, int increment, int end);
 
 
 void help(void);
@@ -46,6 +47,10 @@ int main(int argc, char** argv){
     char last_name[10];
     char course_department[3];
     int course_number;
+    int start;
+    int increment;
+    int end;
+    int results;
     
     // get_info();
     // Figure_2_1();
@@ -114,6 +119,27 @@ int main(int argc, char** argv){
         for_loops_01();
     } else if(strcmpi(argv[1], "/for_loops_02") == 0){
         for_loops_02();
+    } else if((strcmpi(argv[1], "/for_loops_03") == 0) && (argc == 2)){ // 2 arguments in cmd (fundamentals_demo.exe, /for_loops_03)
+        // assume the user wants to gather the information interactively
+        printf("Please enter a starting integer:\n");
+        scanf("%d", &start);
+        
+        printf("Please enter an increment integer:\n");
+        scanf("%d", &increment);
+        
+        printf("Please enter an ending integer:\n");
+        scanf("%d", &end);
+        
+        results = for_loops_03(start, increment, end);
+        printf("Congratulations! Your loop ran %d times!\n", results);
+    } else if((strcmpi(argv[1], "/for_loops_03") == 0) && (argc == 5)){ // 5 arguments in cmd (fundamentals_demo.exe, /for_loops_03, start, end, increment)
+        // assume the user already provides the input arguments in the command line
+        start = atoi(argv[2]); // atoi --> convert from string to integer, atof --> convert from string to doubles
+        increment = atoi(argv[3]);
+        end = atoi(argv[4]);
+        
+        results = for_loops_03(start, increment, end);
+        printf("Congratulations! Your loop ran %d times!\n",results);
     } else{
         help(); // implicit call for help
     }
@@ -142,7 +168,9 @@ void help(void){
     printf("    fundamentals_demo.exe /parametric_01 Chattada Viriyaphap        ... calls parametric_01 using cmd line args\n");
     printf("    fundamentals_demo.exe /for_loops_01              ... calls for_loops_01\n");
     printf("    fundamentals_demo.exe /for_loops_02              ... calls for_loops_02\n");   
-    
+    printf("    fundamentals_demo.exe /for_loops_03              ... calls for_loops_03\n");   
+    printf("    fundamentals_demo.exe /for_loops_03 0 1 9        ... calls for_loops_03\n"); // count from 0 up to 9   
+
 }
 
 
@@ -320,3 +348,53 @@ void for_loops_02(void) {
         printf("%d\n", ((index_outer + 1) * (index_inner + 1)));
     }
 }
+
+/* 
+ * Name: int for_loops_03(int start, int increment, int end)
+ * Desc: Demonstration of different ways to use for loops
+ * Args:
+ *  start - where the loop starts
+ *  increment - how much the value changes each loop
+ *  end - ending value (inclusive)
+ *  returns number of iterations
+ */
+int for_loops_03(int start, int increment, int end) {
+    int count;
+    int index;
+    
+    count = 0; // to keep track of how many times the for-loop has run
+    
+    if(increment < 0){
+        if(end > start){
+            printf("Warning: Increment is negative but the end is greater than the start!\n");
+        } else{
+            // end <= start
+            printf("index      value\n");
+            printf("======================================\n");
+            for(index = start; index >= end; index = index + increment){ // increment is negative
+                printf("%d          %d\n", index, (2 * index));
+                count++; // count = count + 1
+            }
+            printf("======================================\n");    
+        }
+    } else if(increment > 0){
+        if(end < start){
+            printf("Warning: Increment is positive but the end is less than the start!\n");
+        } else{
+            // end >= start
+            printf("index      value\n");
+            printf("======================================\n");
+            for(index = start; index <= end; index = index + increment){ // increment is positive
+                printf("%d          %d\n", index, (2 * index));
+                count++; // count = count + 1
+            }
+            printf("======================================\n"); 
+        }
+    } else{
+        // increment = 0 --> infinite loop because index never changes
+        printf("Warning: Increment must be non-zero (or you will get an infinite loop)!\n");
+    }
+    return(count); // return how many times for-loop has run
+}
+
+
