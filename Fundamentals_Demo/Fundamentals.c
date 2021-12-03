@@ -77,11 +77,11 @@ int main(int argc, char** argv){
         Figure_2_1(); 
     } else if(strcmpi(argv[ 1 ], "/arithmetic_operators") == 0){
         arithmetic_operators();
-/*
     } else if(strcmpi(argv[ 1 ], "/integer_division") == 0){
         integer_division();
     } else if(strcmpi(argv[ 1 ], "/integer_remainder") == 0){
         integer_remainder();
+/*
     } else if(strcmpi(argv[ 1 ], "/formatting_integers") == 0){
         formatting_integers();
     } else if(strcmpi(argv[ 1 ], "/formatting_doubles") == 0){
@@ -251,6 +251,72 @@ void arithmetic_operators(void){
     printf("%f / %d = %f\n", a_double, b_int, (a_double / b_int));
     
     printf("%d %% %d = %d\n", a_int, b_int, (a_int % b_int)); // remainder of 10/3         
+    
+    printf("========================================\n");
+}
+
+/*
+ * Name: void integer_division(void)
+ * Desc: Demonstration of Results of Integer Division 
+ */
+void integer_division(void){
+    printf("Fundamentals: Results of Integer Division\n");
+    printf("========================================\n");        
+    
+    // "normal" examples
+    printf("%d / %d = %d\n", 3, 15, (3/15) );
+    printf("%d / %d = %d\n", 4, 15, (4/15) );
+    printf("%d / %d = %d\n", 5, 15, (5/15) );
+    printf("%d / %d = %d\n", 6, 15, (6/15) );
+    printf("%d / %d = %d\n", 7, 15, (7/15) );
+    printf("%d / %d = %d\n", 8, 15, (8/15) );
+    printf("%d / %d = %d\n", 14, 15, (14/15) );
+    printf("%d / %d = %d\n", 15, 15, (15/15) );
+    printf("%d / %d = %d\n", 15, 3, (15/3) );
+    printf("%d / %d = %d\n", 16, 3, (16/3) );
+    printf("%d / %d = %d\n", 17, 3, (17/3) );
+    printf("%d / %d = %d\n", 18, 3, (18/3) );
+    
+    // negative examples
+    printf("%d / %d = %d\n", 16, -3, (16/-3) );
+    printf("%d / %d = %d\n", -16, 3, (-16/3) );
+    printf("%d / %d = %d\n", -16, -3, (-16/-3) );
+    
+    printf("%d / %d = %d\n", 0, 4, (0/4) );
+    
+    // divide by zero // will crash the executable
+    // printf("%d / %d = %d\n", 4, 0, (4/0) ); 
+    
+    printf("========================================\n");
+}
+
+/*
+ * Name: void integer_remainder(void)
+ * Desc: Demonstration of Results of % Operation 
+ */
+void integer_remainder(void){
+    printf("Fundamentals: Results of Integer Remainder\n");
+    printf("========================================\n");    
+    
+    // "normal" examples
+    printf("%d %% %d = %d\n", 3, 15, (3%15));
+    printf("%d %% %d = %d\n", 4, 5, (4%5));
+    printf("%d %% %d = %d\n", 5, 5, (5%5));
+    printf("%d %% %d = %d\n", 6, 5, (6%5));
+    printf("%d %% %d = %d\n", 7, 5, (7%5));
+    printf("%d %% %d = %d\n", 8, 5, (8%5));
+    printf("%d %% %d = %d\n", 5, 3, (5%3));
+    printf("%d %% %d = %d\n", 5, 4, (5%4));
+    printf("%d %% %d = %d\n", 15, 5, (15%5));
+    printf("%d %% %d = %d\n", 15, 6, (15%6));
+    
+    // negative examples // will crash the executable
+    printf("%d %% %d = %d\n", 15, -7, (15%-7));
+    printf("%d %% %d = %d\n", -15, 7, (-15%7));
+    printf("%d %% %d = %d\n", -15, -7, (-15%-7));
+    
+    // remainder by 0
+    // printf("%d %% %d = %d\n", 15, 0, (15%0));
     
     printf("========================================\n");
 }
