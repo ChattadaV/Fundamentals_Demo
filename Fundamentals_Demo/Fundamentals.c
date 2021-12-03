@@ -29,7 +29,9 @@ void parametric_01(const char first_name[], const char last_name[], const char c
 void for_loops_01(void);
 void for_loops_02(void);
 int for_loops_03(int start, int increment, int end);
-
+void while_loops_01(void);
+void while_loops_02(void);
+int rand_range(int min, int max );
 
 void help(void);
 
@@ -90,9 +92,7 @@ int main(int argc, char** argv){
         type_casts();
     } else if(strcmpi(argv[ 1 ], "/interactive_01") == 0){
         interactive_01();
-/*
-parametric_01 with argc = 6 below comes before parametric_01 with argc = 2 because argc = 6 is more restrictive
-*/
+// parametric_01 with argc = 6 below comes before parametric_01 with argc = 2 because argc = 6 is more restrictive
     } else if((strcmpi(argv[ 1 ], "/parametric_01") == 0) && (argc == 6)){
         // strcpy --> string copy
         strcpy(first_name, argv[2]); // string copy argv[2] to variable first_name
@@ -135,14 +135,10 @@ parametric_01 with argc = 6 below comes before parametric_01 with argc = 2 becau
         
         results = for_loops_03(start, increment, end);
         printf("Congratulations! Your loop ran %d times!\n", results);
-    } else if((strcmpi(argv[1], "/for_loops_03") == 0) && (argc == 5)){ // 5 arguments in cmd (fundamentals_demo.exe, /for_loops_03, start, end, increment)
-        // assume the user already provides the input arguments in the command line
-        start = atoi(argv[2]); // atoi --> convert from string to integer, atof --> convert from string to doubles
-        increment = atoi(argv[3]);
-        end = atoi(argv[4]);
-        
-        results = for_loops_03(start, increment, end);
-        printf("Congratulations! Your loop ran %d times!\n",results);
+    } else if(strcmpi(argv[1], "/while_loops_01") == 0){ 
+        while_loops_01();
+    } else if(strcmpi(argv[1], "/while_loops_02") == 0){ 
+        while_loops_02(); // simple guessing game :)
     } else{
         help(); // implicit call for help
     }
@@ -173,7 +169,8 @@ void help(void){
     printf("    fundamentals_demo.exe /for_loops_02              ... calls for_loops_02\n");   
     printf("    fundamentals_demo.exe /for_loops_03              ... calls for_loops_03\n");   
     printf("    fundamentals_demo.exe /for_loops_03 0 1 9        ... calls for_loops_03\n"); // count from 0 up to 9   
-
+    printf("    fundamentals_demo.exe /while_loops_01            ... calls while_loops_01\n");
+    printf("    fundamentals_demo.exe /while_loops_02            ... calls while_loops_02\n");
 }
 
 
@@ -622,4 +619,164 @@ int for_loops_03(int start, int increment, int end) {
     return(count); // return how many times for-loop has run
 }
 
+/* 
+ * Name: void while_loops_01(void)
+ * Desc: Demonstration of different ways to use while loops
+ */
+void while_loops_01(void){
+    int index;
+    double balance; // check card balance
+    double purchase; // attempt to buy something
+    int broke; // flag that represents a condition
+    int count;
+    
+    /* Syntax:
+     *      loop repetition condition - while this is true, the loop continue
+     * - make sure to initialize the condition outside the while loop
+     * - make sure the condition changes at some point in the while loop (or the loop will be infinite)
+     * 
+     *  while (loop repetition condition)
+     * {    
+     *      block of code/statements
+     *      statement;
+     * }      
+     */
+    
+    // https://en.wikibooks.org/wiki/C%2B%2B_Programming/Code/Standard_C_Library/Functions/srand    
+    // https://en.wikibooks.org/wiki/C_Programming/time.h
+    srand( time(NULL) );    
+    
+    // basic while loop
+    index = 0; // start value
+    printf("index      value\n");
+    printf("======================================\n");
+    while(index <= 9){
+        printf("%d          %d\n", index, (2 * index));
+        index++; // index = index + 1
+    }
+    printf("======================================\n\n");
+    
+    // basic while loop with random number generator
+    index = 0; // initialize value again
+    printf("index      value\n");
+    printf("======================================\n");
+    while(index <= 9){
+        printf("%d          %d\n", index, rand());
+        index++; // index = index + 1
+    }
+    printf("======================================\n\n");
+    
+    // basic while loop to track money spending
+    balance = 1000;
+    count = 0;
+    printf("count      value            balance\n");
+    printf("======================================\n");
+    while(balance > 0.0){
+        // can purchase things
+        purchase = rand() / 100.0; // convert an integer value to dollars/cents
+        balance = balance - purchase;
+        count++;
+        printf("%d          %.2f            %.2f\n", count, purchase, balance);
+    }
+    printf("======================================\n\n");
+    
+    /*
+     * while loop to track money spending using a flag that represents 
+     * broke (stop buying) or not broke (keep buying) so we don't end up with 
+     * negative balance at the end
+    */
+    balance = 1000;
+    count = 0;
+    broke = 0; // not broke
+    printf("count      value            balance\n");
+    printf("======================================\n");
+    while(broke == 0){
+        purchase = rand() / 100.0;
+        if(purchase < balance){
+            // can buy
+            balance = balance - purchase;
+            count++;
+            printf("%d          %.2f            %.2f\n", count, purchase, balance);
+        } else{
+            // cannot buy because not enough money
+            broke = 1;
+        }
+    }
+    printf("======================================\n");
+}
 
+/* 
+ * Name: void while_loops_02(void)
+ * Desc: Simple game of guessing
+ *      Demonstration an interactive way to use while loops
+ *      
+ */
+void while_loops_02(void){
+    int valid;
+    int first;
+    int second;
+    int chosen; // chosen by computer
+    int guess;
+    int count_current;
+    int count_max;
+    
+    valid = 0; // valid is false
+    count_current = 0;
+    count_max = 3; // consider asking user how many times they'd like to guess
+    
+    // srand(time(0));
+    srand(time(NULL)); // Creates the seed for the random number generator.
+    
+    printf("Let's play a guessing game!  Pick two integers.\n");
+    printf("I'll pick one in between them.\n");
+    printf("I'll give you %d guesses to figure out my integer!\n", count_max);
+    printf("Let's go!!!\n\n");
+    
+    printf("Please enter the minimum integer value\n");
+    scanf("%d", &first);
+    // make sure minimum and maximum value are different
+    while(valid == 0){
+        printf("Please enter the maximum integer value\n");
+        scanf("%d", &second);
+        // make sure minimum and maximum value are different
+        if(second > first){
+            // continue
+            valid = 1;
+        } else{
+            valid = 0;
+        }
+    }
+    // assume the user wants to continue
+    chosen = rand_range(first, second);
+    valid = 0; // the user has not yet picked the correct value
+    while((valid == 0) && (count_current < count_max)){
+        printf("Please guess the value that I have picked!\n");
+        count_current++;
+        printf("Try #%d of %d\n", count_current, count_max);
+        scanf("%d", &guess);
+        if(guess == chosen){ // guessed correctly, won the game
+            printf("Congratulations! You guessed the correct number!\n");
+            valid = 1;
+            // loop terminates
+        } else if(guess < chosen){ // guessed a wrong number (too low)
+            printf("Nope! Number is too low!\n");
+            // loop continues
+        } else if(guess > chosen){ // guessed a wrong number (too high)
+            printf("Nope! Number is too high!\n");
+            // loop continues
+        }
+    }
+    if(valid == 0){ // lost the game
+        printf("You did not guess correctly within the number of tries :( the correct number is %d ... Wanna play again?\n", chosen);
+    } else{ // won the game
+        printf("Wanna play again?\n");
+    }
+}
+
+/* 
+ * Name: int rand_range(int min, int max )
+ * Desc: Demonstration of a random integer generator
+ */
+int rand_range(int min, int max ){    
+    return (min + rand() / (RAND_MAX / (max - min + 1) + 1)); // RAND_MAX --> find max value across all random integers in the list
+}
