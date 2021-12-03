@@ -9,6 +9,7 @@
 #include <stdio.h> // printf, scanf, definitions
 #include <stdlib.h>
 #include <string.h> // strcpy, strcmpi
+#include <math.h> // math library
 
 #define KMS_PER_MILE 1.609 // conversion constant
 
@@ -25,6 +26,8 @@ void type_casts(void);
 void interactive_01(void);
 void parametric_01(const char first_name[], const char last_name[], const char course_department[], const int course_number);
 void for_loops_01(void);
+void for_loops_02(void);
+
 
 void help(void);
 
@@ -109,6 +112,8 @@ int main(int argc, char** argv){
 */
     } else if(strcmpi(argv[1], "/for_loops_01") == 0){
         for_loops_01();
+    } else if(strcmpi(argv[1], "/for_loops_02") == 0){
+        for_loops_02();
     } else{
         help(); // implicit call for help
     }
@@ -135,7 +140,9 @@ void help(void){
     printf("    fundamentals_demo.exe /interactive_01            ... calls interactive_01\n");
     printf("    fundamentals_demo.exe /parametric_01             ... calls parametric_01\n");
     printf("    fundamentals_demo.exe /parametric_01 Chattada Viriyaphap        ... calls parametric_01 using cmd line args\n");
-    printf("    fundamentals_demo.exe /for_loops_01              ... calls for_loops_01\n");   
+    printf("    fundamentals_demo.exe /for_loops_01              ... calls for_loops_01\n");
+    printf("    fundamentals_demo.exe /for_loops_02              ... calls for_loops_02\n");   
+    
 }
 
 
@@ -273,4 +280,43 @@ void for_loops_01(void){
     printf("======================================\n");
 }
 
-
+/* 
+ * Name: void for_loops_02(void)
+ * Desc: Demonstration of different ways to use for loops
+ */
+void for_loops_02(void) {
+    int index_outer;
+    int index_inner;
+    double current_outer;
+    double current_inner;
+    
+    // find number of outer and inner loops then multiply it
+    printf("index          value\n");
+    printf("======================================\n");
+    for(index_outer = 1; index_outer <= 12; index_outer++){
+        for(index_inner = 1; index_inner <= 10; index_inner++){
+            // use the indeces to fill out the multiplication table
+            // index_inner * index_outer --> total number of times this code will run
+            printf("%d, %d          %d\n", index_outer, index_inner, (index_outer * index_inner));
+        }
+    }
+    printf("======================================\n\n");        
+    
+    // find number of outer and inner loops according to value of pi then multiply it
+    printf("current          value\n");
+    printf("======================================\n");
+    for(current_outer = 0.0; current_outer < 10.0; current_outer++){
+        for(current_inner = 0.0; current_inner < (2 * M_PI); current_inner = current_inner + (M_PI / 4.0)){
+            printf("%.4f, %.4f          %.4f\n", current_outer, current_inner, (current_outer * current_inner));
+        }
+    }
+    printf("======================================\n\n");    
+    
+    // making table of values of for-loop
+    for(index_outer = 0; index_outer < 12; index_outer++){ // stops at 11
+        for(index_inner = 0; index_inner < 9; index_inner++){ // stops at 8
+            printf("%d,", ((index_outer + 1) * (index_inner + 1)));
+        }
+        printf("%d\n", ((index_outer + 1) * (index_inner + 1)));
+    }
+}
