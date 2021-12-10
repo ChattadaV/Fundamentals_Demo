@@ -35,7 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Fundamentals.o
+	${OBJECTDIR}/Fundamentals_Driver.o
 
 
 # C Compiler Flags
@@ -62,10 +62,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fundamentals_demo.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/fundamentals_demo ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/Fundamentals.o: Fundamentals.c
+${OBJECTDIR}/Fundamentals_Driver.o: Fundamentals_Driver.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fundamentals.o Fundamentals.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fundamentals_Driver.o Fundamentals_Driver.c
 
 # Subprojects
 .build-subprojects:
